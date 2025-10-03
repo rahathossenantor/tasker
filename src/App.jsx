@@ -1,10 +1,12 @@
 import Footer from "./sections/Footer";
-import Header from "./sections/Header";
+import Hero from "./sections/Hero";
+import Navbar from "./sections/Navbar";
 
 export default function App() {
     return (
         <>
-            <Header />
+            <Navbar />
+            <Hero />
             <Footer />
         </>
     );
