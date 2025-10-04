@@ -86,10 +86,15 @@ export default function TaskBoard() {
                     />
                     <TaskLists
                         tasks={tasks}
-                        onUpdateTask={(task) => {
+                        onUpdate={(task) => {
                             setTaskToUpdate(task);
                             setModalMode("update");
                             setShowTaskModal(true);
+                        }}
+                        onDelete={(id) => {
+                            setTasks((prevTasks) =>
+                                prevTasks.filter((task) => task.id !== id)
+                            );
                         }}
                     />
                 </div>
