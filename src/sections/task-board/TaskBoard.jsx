@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TaskActions from "./TaskActions";
 import TaskLists from "./TaskLists";
+import TaskModal from "./TaskModal";
 import TaskSearchBox from "./TaskSearchBox";
 
 const tasksData = [
@@ -43,14 +44,23 @@ const tasksData = [
 ];
 
 export default function TaskBoard() {
-    const [tasks] = useState(tasksData);
+    const [tasks, setTasks] = useState(tasksData);
+    const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+
+    const handleSaveTask = (newTask) => {
+        setTasks((prevTasks) => [...prevTasks, newTask]);
+        setShowAddTaskModal(false);
+    };
 
     return (
         <section className="mb-20" id="tasks">
+            {showAddTaskModal && <TaskModal onSaveTask={handleSaveTask} />}
             <div className="container m-auto">
                 <TaskSearchBox />
                 <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
-                    <TaskActions />
+                    <TaskActions
+                        onOpenAddTaskModal={() => setShowAddTaskModal(true)}
+                    />
                     <TaskLists tasks={tasks} />
                 </div>
             </div>
