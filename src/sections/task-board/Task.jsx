@@ -5,9 +5,9 @@ export default function Task({ task, onUpdateTask }) {
         <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
             <td>
                 {task.isFavorite ? (
-                    <FaStar className="text-yellow-400" />
+                    <FaStar className="text-yellow-400 cursor-pointer" />
                 ) : (
-                    <FaStar className="text-gray-400" />
+                    <FaStar className="text-gray-400 cursor-pointer" />
                 )}
             </td>
             <td>{task.title}</td>

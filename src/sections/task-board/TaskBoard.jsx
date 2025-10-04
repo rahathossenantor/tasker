@@ -63,6 +63,11 @@ export default function TaskBoard() {
         setShowTaskModal(false);
     };
 
+    const handleCloseModal = () => {
+        setShowTaskModal(false);
+        setTaskToUpdate(null);
+    };
+
     return (
         <section className="mb-20" id="tasks">
             {showTaskModal && (
@@ -70,6 +75,7 @@ export default function TaskBoard() {
                     onSaveTask={handleSaveTask}
                     taskToUpdate={taskToUpdate}
                     modalMode={modalMode}
+                    onClose={handleCloseModal}
                 />
             )}
             <div className="container m-auto">
