@@ -78,6 +78,19 @@ export default function TaskBoard() {
         setTaskToUpdate(null);
     };
 
+    const handleSearch = (searchTerm) => {
+        const lowercasedTerm = searchTerm.toLowerCase();
+        const filteredTasks = tasks.filter(
+            (task) =>
+                task.title.toLowerCase().includes(lowercasedTerm) ||
+                task.description.toLowerCase().includes(lowercasedTerm) ||
+                task.tags.some((tag) =>
+                    tag.toLowerCase().includes(lowercasedTerm)
+                )
+        );
+        setTasks(filteredTasks);
+    };
+
     return (
         <section className="mb-20" id="tasks">
             {showTaskModal && (
@@ -89,7 +102,7 @@ export default function TaskBoard() {
                 />
             )}
             <div className="container m-auto">
-                <TaskSearchBox />
+                <TaskSearchBox onSearch={handleSearch} />
                 <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
                     <TaskActions
                         onOpenTaskModal={() => setShowTaskModal(true)}
