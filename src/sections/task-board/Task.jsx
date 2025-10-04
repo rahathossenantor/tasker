@@ -1,6 +1,6 @@
 import { FaStar } from "react-icons/fa";
 
-export default function Task({ task }) {
+export default function Task({ task, onUpdateTask }) {
     return (
         <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
             <td>
@@ -33,7 +33,10 @@ export default function Task({ task }) {
                     <button className="text-red-500 cursor-pointer">
                         Delete
                     </button>
-                    <button className="text-blue-500 cursor-pointer">
+                    <button
+                        className="text-blue-500 cursor-pointer"
+                        onClick={() => onUpdateTask(task)}
+                    >
                         Edit
                     </button>
                 </div>

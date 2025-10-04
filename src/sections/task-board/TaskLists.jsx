@@ -1,6 +1,6 @@
 import Task from "./Task";
 
-export default function TaskLists({ tasks }) {
+export default function TaskLists({ tasks, onUpdateTask }) {
     return (
         <div className="overflow-auto">
             <table className="table-fixed overflow-auto xl:w-full">
@@ -31,7 +31,13 @@ export default function TaskLists({ tasks }) {
                 </thead>
                 <tbody>
                     {tasks.length ? (
-                        tasks.map((task) => <Task key={task.id} task={task} />)
+                        tasks.map((task) => (
+                            <Task
+                                key={task.id}
+                                task={task}
+                                onUpdateTask={onUpdateTask}
+                            />
+                        ))
                     ) : (
                         <tr>
                             <td colSpan="6" className="p-4 text-center">

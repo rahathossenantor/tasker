@@ -1,13 +1,16 @@
 import { useState } from "react";
 
-export default function TaskModal({ onSaveTask }) {
-    const [task, setTask] = useState({
-        title: "",
-        description: "",
-        tags: [],
-        priority: "",
-        isFavorite: false,
-    });
+export default function TaskModal({ onSaveTask, modalMode, taskToUpdate }) {
+    const [task, setTask] = useState(
+        taskToUpdate || {
+            id: crypto.randomUUID(),
+            title: "",
+            description: "",
+            tags: [],
+            priority: "",
+            isFavorite: false,
+        }
+    );
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,7 +47,7 @@ export default function TaskModal({ onSaveTask }) {
                 }}
             >
                 <h2 className="mb-9 text-center text-2xl font-bold text-white lg:mb-11 lg:text-[28px]">
-                    Add New Task
+                    {modalMode === "create" ? "Create New Task" : "Update Task"}
                 </h2>
                 <div className="space-y-9 text-white lg:space-y-10">
                     <div className="space-y-2 lg:space-y-3">
@@ -54,6 +57,7 @@ export default function TaskModal({ onSaveTask }) {
                             type="text"
                             name="title"
                             id="title"
+                            value={task.title}
                             onChange={handleChange}
                             required
                         />
@@ -65,6 +69,7 @@ export default function TaskModal({ onSaveTask }) {
                             type="text"
                             name="description"
                             id="description"
+                            value={task.description}
                             required
                             onChange={handleChange}
                         ></textarea>
@@ -79,6 +84,7 @@ export default function TaskModal({ onSaveTask }) {
                                 id="tags"
                                 required
                                 onChange={handleChange}
+                                value={task.tags.join(", ")}
                             />
                         </div>
                         <div className="space-y-2 lg:space-y-3">
@@ -88,6 +94,7 @@ export default function TaskModal({ onSaveTask }) {
                                 name="priority"
                                 id="priority"
                                 onChange={handleChange}
+                                value={task.priority}
                                 required
                             >
                                 <option value="">Select Priority</option>
@@ -103,7 +110,9 @@ export default function TaskModal({ onSaveTask }) {
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80 cursor-pointer"
                     >
-                        Create new Task
+                        {modalMode === "create"
+                            ? "Create New Task"
+                            : "Update Task"}
                     </button>
                 </div>
             </form>

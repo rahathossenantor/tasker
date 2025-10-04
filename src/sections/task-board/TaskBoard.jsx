@@ -45,23 +45,47 @@ const tasksData = [
 
 export default function TaskBoard() {
     const [tasks, setTasks] = useState(tasksData);
-    const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+    const [showTaskModal, setShowTaskModal] = useState(false);
+    const [modalMode, setModalMode] = useState("create");
+    const [taskToUpdate, setTaskToUpdate] = useState(null);
 
     const handleSaveTask = (newTask) => {
-        setTasks((prevTasks) => [...prevTasks, newTask]);
-        setShowAddTaskModal(false);
+        if (modalMode === "create") {
+            setTasks((prevTasks) => [...prevTasks, newTask]);
+        } else if (modalMode === "update") {
+            setTasks((prevTasks) =>
+                prevTasks.map((task) =>
+                    task.id === taskToUpdate.id ? newTask : task
+                )
+            );
+        }
+
+        setShowTaskModal(false);
     };
 
     return (
         <section className="mb-20" id="tasks">
-            {showAddTaskModal && <TaskModal onSaveTask={handleSaveTask} />}
+            {showTaskModal && (
+                <TaskModal
+                    onSaveTask={handleSaveTask}
+                    taskToUpdate={taskToUpdate}
+                    modalMode={modalMode}
+                />
+            )}
             <div className="container m-auto">
                 <TaskSearchBox />
                 <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
                     <TaskActions
-                        onOpenAddTaskModal={() => setShowAddTaskModal(true)}
+                        onOpenTaskModal={() => setShowTaskModal(true)}
                     />
-                    <TaskLists tasks={tasks} />
+                    <TaskLists
+                        tasks={tasks}
+                        onUpdateTask={(task) => {
+                            setTaskToUpdate(task);
+                            setModalMode("update");
+                            setShowTaskModal(true);
+                        }}
+                    />
                 </div>
             </div>
         </section>
