@@ -1,6 +1,11 @@
 import Task from "./Task";
 
-export default function TaskLists({ tasks, onUpdate, onDelete }) {
+export default function TaskLists({
+    tasks,
+    onUpdate,
+    onFavoriteToggle,
+    onDelete,
+}) {
     return (
         <div className="overflow-auto">
             <table className="table-fixed overflow-auto xl:w-full">
@@ -36,6 +41,7 @@ export default function TaskLists({ tasks, onUpdate, onDelete }) {
                                 key={task.id}
                                 task={task}
                                 onUpdate={onUpdate}
+                                onFavoriteToggle={onFavoriteToggle}
                                 onDelete={onDelete}
                             />
                         ))

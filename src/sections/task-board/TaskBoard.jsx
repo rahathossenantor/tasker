@@ -63,6 +63,16 @@ export default function TaskBoard() {
         setShowTaskModal(false);
     };
 
+    const handleFavoriteToggle = (id) => {
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === id
+                    ? { ...task, isFavorite: !task.isFavorite }
+                    : task
+            )
+        );
+    };
+
     const handleCloseModal = () => {
         setShowTaskModal(false);
         setTaskToUpdate(null);
@@ -92,6 +102,7 @@ export default function TaskBoard() {
                             setModalMode("update");
                             setShowTaskModal(true);
                         }}
+                        onFavoriteToggle={handleFavoriteToggle}
                         onDelete={(id) => {
                             setTasks((prevTasks) =>
                                 prevTasks.filter((task) => task.id !== id)

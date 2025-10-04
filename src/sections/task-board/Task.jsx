@@ -1,14 +1,19 @@
 import { FaStar } from "react-icons/fa";
 
-export default function Task({ task, onUpdate, onDelete }) {
+export default function Task({ task, onUpdate, onFavoriteToggle, onDelete }) {
     return (
         <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
             <td>
-                {task.isFavorite ? (
-                    <FaStar className="text-yellow-400 cursor-pointer" />
-                ) : (
-                    <FaStar className="text-gray-400 cursor-pointer" />
-                )}
+                <button
+                    className="cursor-pointer"
+                    onClick={() => onFavoriteToggle(task.id)}
+                >
+                    {task.isFavorite ? (
+                        <FaStar className="text-yellow-400" />
+                    ) : (
+                        <FaStar className="text-gray-400" />
+                    )}
+                </button>
             </td>
             <td>{task.title}</td>
             <td>
